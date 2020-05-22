@@ -17,7 +17,7 @@ for f in ./contigs/*_every1000
 do
     [[ $f =~ \/contigs\/(.*)\.fasta.* ]]
     NAME=${BASH_REMATCH[1]}
-    cat contigs/28267_PI1.fasta_clean_comb_every1000 | \
+    cat $f | \
         awk '{printf "%d\n%s\n", NR, $0}' | \
         sed "/^[0-9]/s/^/>read_$NAME\_/" > \
         ./contigs/${NAME}.line.fa
