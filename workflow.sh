@@ -7,7 +7,7 @@
 # Remove '>' sections and combine lines within each section
 for f in ./contigs/*.fasta ; do sed 's/^>NODE.*$/>/g' $f > $f\_clean ; done ;
 for f in ./contigs/*_clean ; do cat $f | tr -d '\n' > $f\_comb ; done ;
-for f in ./contigs/*_comb ; do sed -i 's/>//g' $f ; done ;
+for f in ./contigs/*_comb ; do sed -i 's/>/\n/g' $f ; done ;
 
 # Split lines into groups of 1000
 for f in ./contigs/*_comb ; do sed -r 's/(.{1000})/\1\n/g' $f > $f\_every1000 ; done ;
