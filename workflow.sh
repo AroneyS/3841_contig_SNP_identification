@@ -19,7 +19,7 @@ do
     NAME=${BASH_REMATCH[1]}
     cat $f | \
         awk '{printf "%d\n%s\n", NR, $0}' | \
-        sed "/^[0-9]/s/^/>read_$NAME\_/" > \
+        sed "/^[0-9]/s/^/>contig_$NAME\_/" > \
         ./contigs/${NAME}.line.fa
 done
 
