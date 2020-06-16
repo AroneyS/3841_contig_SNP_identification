@@ -22,8 +22,9 @@ do
 done
 for f in ./contigs/*_trim ; do sed -i '/^$/d' $f ; done ;
 
-# Split lines into groups of 1000
-for f in ./contigs/*_trim ; do sed -r 's/(.{1000})/\1\n/g' $f > $f\_every1000 ; done ;
+# Split lines into groups of 1000 (removing end stubs <500bp)
+for f in ./contigs/*_trim ; do sed -r 's/(.{1000})/\1\n/g' $f > $f\_split1000 ; done ;
+for f in ./contigs/*_split1000 ; do awk 'length($0)>500' $f > $f\_every1000 ; done ;
 
 # Label each line with read_{filename}_{num}
 for f in ./contigs/*_every1000
@@ -36,7 +37,7 @@ do
         ./contigs/${NAME}.line.fa
 done
 
-rm ./contigs/*_clean ; rm ./contigs/*_comb ; rm ./contigs/*_trim ; rm ./contigs/*_every1000 ;
+rm ./contigs/*_clean ; rm ./contigs/*_comb ; rm ./contigs/*_trim ; rm ./contigs/*_split1000 ; rm ./contigs/*_every1000 ;
 
 #############################################
 ### Run applications in docker containers ###
